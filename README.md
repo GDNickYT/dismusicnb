@@ -1,18 +1,18 @@
 [![Downloads](https://static.pepy.tech/personalized-badge/dismusic?period=total&units=abbreviation&left_color=blue&right_color=brightgreen&left_text=Downloads)](https://pepy.tech/project/dismusic)
-# dismusic
+# dismusicnb
 
 Music cog for discord bots. Supports YouTube, YoutubeMusic, SoundCloud and Spotify.
 
 # Installation
 
 ```sh
-python3 -m pip install dismusic
+python3 -m pip install dismusicnb
 ```
 
 or from Github (Might be unstable)
 
 ```sh
-python3 -m pip install git+https://github.com/shahriyardx/dismusic.git
+python3 -m pip install git+https://github.com/GDNickYT/dismusicnb.git
 ```
 
 # Usage
