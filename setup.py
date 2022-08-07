@@ -23,7 +23,7 @@ with open("requirements.txt") as f:
 current_directory = Path(__file__).parent.resolve()
 long_description = (current_directory / "README.md").read_text(encoding="utf-8")
 
-version_path = current_directory / "dismusic" / "_version.py"
+version_path = current_directory / "dismusicnb" / "_version.py"
 module_spec = spec_from_file_location(version_path.name[:-3], version_path)
 version_module = module_from_spec(module_spec)
 module_spec.loader.exec_module(version_module)
@@ -34,7 +34,7 @@ setup(
     description="Music cog for discord bots. Supports YouTube, YoutubeMusic, SoundCloud and Spotify.",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/shahriyardx/dismusic/",
+    url="https://github.com/shahriyardx/dismusicnb/",
     author="Md Shahriyar Alam",
     author_email="contact@shahriyar.dev",
     license="MIT",
@@ -44,7 +44,7 @@ setup(
     python_requires=">=3.7, <4",
     install_requires=requirements,
     project_urls={
-        "Bug Reports": "https://github.com/shahriyardx/dismusic/issues",
-        "Source": "https://github.com/shahriyardx/dismusic/",
+        "Bug Reports": "https://github.com/GDNickYT/dismusicnb/issues",
+        "Source": "https://github.com/GDNickYT/dismusicnb/",
     },
 )
