@@ -121,12 +121,12 @@ class Music(commands.Cog):
             player: DisPlayer = await ctx.author.voice.channel.connect(cls=DisPlayer)
             self.bot.dispatch("dismusic_player_connect", player)
         except (asyncio.TimeoutError, ClientException):
-            return await msg.edit(content="Failed to connect to voice channel.")
+            return await msg.edit(content="**Failed to connect to voice channel.**")
 
         player.bound_channel = ctx.channel
         player.bot = self.bot
 
-        await msg.edit(content=f"Connected to **`{player.channel.name}`**")
+        await msg.edit(content=f"Connected to **{player.channel.name}**")
 
     @commands.group(aliases=["p"], invoke_without_command=True)
     @voice_connected()
@@ -170,13 +170,13 @@ class Music(commands.Cog):
         player: DisPlayer = ctx.voice_client
 
         if vol < 0:
-            return await ctx.send("Volume can't be less than 0")
+            return await ctx.send("Volume can't be less than **0**")
 
         if vol > 100 and not forced:
-            return await ctx.send("Volume can't greater than 100")
+            return await ctx.send("Volume can't greater than **100**")
 
         await player.set_volume(vol)
-        await ctx.send(f"Volume set to {vol} :loud_sound:")
+        await ctx.send(f"**Volume set to {vol}**")
 
     @commands.command(aliases=["disconnect", "dc"])
     @voice_channel_player()
@@ -185,7 +185,8 @@ class Music(commands.Cog):
         player: DisPlayer = ctx.voice_client
 
         await player.destroy()
-        await ctx.send("Stopped the player :stop_button: ")
+        embed = discord.Embed(title="Stop", description="Track stopped.", color=discord.Color.red())
+        await ctx.send(embed=embed)
         self.bot.dispatch("dismusic_player_stop", player)
 
     @commands.command()
@@ -196,11 +197,13 @@ class Music(commands.Cog):
 
         if player.is_playing():
             if player.is_paused():
-                return await ctx.send("Player is already paused.")
+                embed = discord.Embed(title="Pause", description="Player is already paused", color=discord.Color.red())
+                return await ctx.send(embed=embed)
 
             await player.set_pause(pause=True)
             self.bot.dispatch("dismusic_player_pause", player)
-            return await ctx.send("Paused :pause_button: ")
+            embed = discord.Embed(title="Pause", description="Paused", color=discord.Color.green())
+            return await ctx.send(embed=embed)
 
         await ctx.send("Player is not playing anything.")
 
@@ -212,13 +215,15 @@ class Music(commands.Cog):
 
         if player.is_playing():
             if not player.is_paused():
-                return await ctx.send("Player is already playing.")
+                    embed = discord.Embed(title="Resume", description="Player is already playing.", color=discord.Color.red())
+                    return await ctx.send(embed=embed)
 
             await player.set_pause(pause=False)
             self.bot.dispatch("dismusic_player_resume", player)
-            return await ctx.send("Resumed :musical_note: ")
-
-        await ctx.send("Player is not playing anything.")
+            embed = discord.Embed(title="Resume", description="Resumed", color=discord.Color.green())
+            return await ctx.send(embed=embed)
+        embed = discord.Embed(title="Resume", description="Player is not playing anything.", color=discord.Color.red())
+        await ctx.send(embed=embed)
 
     @commands.command()
     @voice_channel_player()
@@ -232,7 +237,8 @@ class Music(commands.Cog):
         await player.stop()
 
         self.bot.dispatch("dismusic_track_skip", player)
-        await ctx.send("Skipped :track_next:")
+        embed = discord.Embed(title="Skip", description="Skipped this track.", color=discord.Color.yellow())
+        await ctx.send(embed=embed)
 
     @commands.command()
     @voice_channel_player()
@@ -244,16 +250,18 @@ class Music(commands.Cog):
             old_position = player.position
             position = old_position + seconds
             if position > player.source.length:
-                return await ctx.send("Can't seek past the end of the track.")
+                embed = discord.Embed(title="Seek", description="Can't seek past the end of the track.", color=discord.Color.red())
+                return await ctx.send(embed=embed)
 
             if position < 0:
                 position = 0
 
             await player.seek(position * 1000)
             self.bot.dispatch("dismusic_player_seek", player, old_position, position)
-            return await ctx.send(f"Seeked {seconds} seconds :fast_forward: ")
-
-        await ctx.send("Player is not playing anything.")
+            embed = discord.Embed(title="Seek", description=f"Seeked {seconds} seconds", color=discord.Color.green())
+            return await ctx.send(embed=embed)
+        embed = discord.Embed(title="Seek", description="Player is not playing anything", color=discord.Color.red())
+        return await ctx.send(embed=embed)
 
     @commands.command()
     @voice_channel_player()
@@ -262,7 +270,8 @@ class Music(commands.Cog):
         player: DisPlayer = ctx.voice_client
 
         result = await player.set_loop(loop_type)
-        await ctx.send(f"Loop has been set to {result} :repeat: ")
+        embed = discord.Embed(title="Loop", description=f"Loop has been set to {result} ",color=discord.Color.green())
+        await ctx.send(embed=embed)
 
     @commands.command(aliases=["q"])
     @voice_channel_player()
