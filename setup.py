@@ -23,7 +23,7 @@ with open("requirements.txt") as f:
 current_directory = Path(__file__).parent.resolve()
 long_description = (current_directory / "README.md").read_text(encoding="utf-8")
 
-version_path = current_directory / "dismusicnb" / "_version.py"
+version_path = current_directory / "dismusic" / "_version.py"
 module_spec = spec_from_file_location(version_path.name[:-3], version_path)
 version_module = module_from_spec(module_spec)
 module_spec.loader.exec_module(version_module)
