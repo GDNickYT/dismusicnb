@@ -29,14 +29,14 @@ version_module = module_from_spec(module_spec)
 module_spec.loader.exec_module(version_module)
 
 setup(
-    name="dismusicnb",
+    name="dismusic",
     version=version_module.__version__,
     description="Music cog for discord bots. Supports YouTube, YoutubeMusic, SoundCloud and Spotify.",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/GDNickYT/dismusicnb/",
     author="GDNick",
-    author_email="contact@shahriyar.dev",
+    author_email="",
     license="MIT",
     classifiers=classifiers,
     keywords="discord discord-music music-bot discord-music-bot lavalink wavelink",
